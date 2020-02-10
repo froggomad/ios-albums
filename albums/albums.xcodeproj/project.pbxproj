@@ -17,6 +17,7 @@
 		B950766623F200F70080E190 /* AlbumDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950766523F200F70080E190 /* AlbumDetailTableViewController.swift */; };
 		B950766823F203FB0080E190 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950766723F203FB0080E190 /* SongTableViewCell.swift */; };
 		B950766A23F209170080E190 /* exampleAlbum.json in Resources */ = {isa = PBXBuildFile; fileRef = B950766923F209170080E190 /* exampleAlbum.json */; };
+		B950766C23F20F060080E190 /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950766B23F20F060080E190 /* AlbumController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		B950766523F200F70080E190 /* AlbumDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailTableViewController.swift; sourceTree = "<group>"; };
 		B950766723F203FB0080E190 /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		B950766923F209170080E190 /* exampleAlbum.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = exampleAlbum.json; path = ../../../exampleAlbum.json; sourceTree = "<group>"; };
+		B950766B23F20F060080E190 /* AlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		B950765D23F1F9560080E190 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B950766B23F20F060080E190 /* AlbumController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				B950764723F1F9110080E190 /* AppDelegate.swift in Sources */,
 				B950764923F1F9110080E190 /* SceneDelegate.swift in Sources */,
 				B950766623F200F70080E190 /* AlbumDetailTableViewController.swift in Sources */,
+				B950766C23F20F060080E190 /* AlbumController.swift in Sources */,
 				B950766223F1F9AA0080E190 /* Album.swift in Sources */,
 				B950766423F1FA960080E190 /* AlbumsTableViewController.swift in Sources */,
 			);
