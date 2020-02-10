@@ -12,11 +12,16 @@ class AlbumController {
     
     
     #warning("Unsafe handling - testing only!")
-    func testDecodingExampleAlbum() {
+    class func testDecodingExampleAlbum() {
         let decoder = JSONDecoder()
         let urlPath = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json")
-        let jsonData = try! Data(contentsOf: urlPath!)
-        let album = try! decoder.decode(Album.self, from: jsonData)
-        print(album)
+        do {
+            let jsonData = try Data(contentsOf: urlPath!)
+            let album = try decoder.decode(Album.self, from: jsonData)
+            print(album)
+        } catch {
+            print(error)
+        }
+        
     }
 }
