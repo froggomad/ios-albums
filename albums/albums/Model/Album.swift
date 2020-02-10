@@ -37,8 +37,8 @@ struct Album: Decodable {
             
             var coverArtContainer = try albumContainer.nestedUnkeyedContainer(forKey: .coverArt)
             var coverArtUrls = [URL]()
-            let urlContainer = try coverArtContainer.nestedContainer(keyedBy: CoverArtKey.self)
             while !coverArtContainer.isAtEnd {
+                let urlContainer = try coverArtContainer.nestedContainer(keyedBy: CoverArtKey.self)
                 coverArtUrls.append(try urlContainer.decode(URL.self, forKey: .url))
             }
             coverArt = coverArtUrls
@@ -57,7 +57,7 @@ struct Album: Decodable {
     
     
     struct Song: Decodable {
-        let duration: Double
+        let duration: String
         /*
          "duration" : {
          "duration" : "3:25"
@@ -68,8 +68,12 @@ struct Album: Decodable {
         
         enum SongKeys: String, CodingKey {
             case id
-            case title
+            case title = "name"
             case duration
+        }
+        
+        enum TitleKey: String, CodingKey {
+            case title
         }
         
         enum DurationKeys: String, CodingKey {
@@ -79,9 +83,12 @@ struct Album: Decodable {
         init(from decoder: Decoder) throws {
             let songContainer = try decoder.container(keyedBy: SongKeys.self)
             do {
-                title = try songContainer.decode(String.self, forKey: .title)
+                let titleContainer = try songContainer.nestedContainer(keyedBy: TitleKey.self, forKey: .title)
+                title = try titleContainer.decode(String.self, forKey: .title)
                 id = try songContainer.decode(UUID.self, forKey: .id)
-                duration = try songContainer.decode(Double.self, forKey: .duration)
+                
+                let durationContainer = try songContainer.nestedContainer(keyedBy: DurationKeys.self, forKey: .duration)
+                duration = try durationContainer.decode(String.self, forKey: .duration)
             } catch {
                 throw error
             }
