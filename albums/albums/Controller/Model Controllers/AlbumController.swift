@@ -10,8 +10,6 @@ import Foundation
 
 class AlbumController {
     
-    
-    #warning("Unsafe handling - testing only!")
     class func testDecodingExampleAlbum() {
         let decoder = JSONDecoder()
         let urlPath = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json")
@@ -22,6 +20,20 @@ class AlbumController {
         } catch {
             print(error)
         }
-        
+    }
+    
+    class func testEncodingExampleAlbum() {
+        var album: Album!
+        let decoder = JSONDecoder()
+        let urlPath = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json")
+        do {
+            let jsonData = try Data(contentsOf: urlPath!)
+            album = try decoder.decode(Album.self, from: jsonData)
+            print(album)
+        } catch {
+            print(error)
+        }
+        let encoder = JSONEncoder()
+        print(String(data: try! encoder.encode(album), encoding: .utf8))
     }
 }
