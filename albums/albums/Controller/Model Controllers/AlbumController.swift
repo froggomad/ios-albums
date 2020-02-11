@@ -39,6 +39,10 @@ class AlbumController {
         }
     }
     
+    func createSong(duration: String, id: UUID, title: String) -> Album.Song {
+        return Album.Song(duration: duration, id: id, title: title)
+    }
+    
     //=======================
     // MARK: - Read/Get
     func getAlbums(complete: @escaping CompleteWithError) {
@@ -102,6 +106,26 @@ class AlbumController {
                 complete(nil)
             }
         }.resume()
+    }
+    
+    func update(album: Album,
+                artist: String,
+                coverArt: [URL],
+                genres: [String],
+                id: UUID,
+                name: String,
+                songs: [Album.Song]) {
+        var album = album
+        album.artist = artist
+        album.coverArt = coverArt
+        album.genres = genres
+        album.name = name
+        album.songs = songs
+        putAlbum(album) { (error) in
+            if let error = error {
+                print(error)
+            }
+        }
     }
     
     class func testDecodingExampleAlbum() {

@@ -11,12 +11,12 @@ import Foundation
 struct Album: Codable {
     //=======================
     // MARK: - Properties
-    let artist: String
-    let coverArt: [URL]
-    let genres: [String]
-    let id: UUID
-    let name: String
-    let songs: [Song]
+    var artist: String
+    var coverArt: [URL]
+    var genres: [String]
+    var id: UUID
+    var name: String
+    var songs: [Song]
     
     //=======================
     // MARK: - CodingKeys
@@ -96,9 +96,9 @@ struct Album: Codable {
     struct Song: Codable {
         //=======================
         // MARK: - Properties
-        let duration: String
-        let id: UUID
-        let title: String
+        var duration: String
+        var id: UUID
+        var title: String
         
         //=======================
         // MARK: - CodingKeys
@@ -146,7 +146,7 @@ struct Album: Codable {
         // MARK: - Encoding Strategy
         func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: SongKeys.self)
-            let durationDict = [SongKeys.duration.rawValue:duration]
+            let durationDict = [SongKeys.duration.rawValue:duration] //Could use a keyed container instead for either of these - they are essentially the same thing
             let titleDict = [TitleKey.title.rawValue:title]
             
             do {
