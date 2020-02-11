@@ -14,22 +14,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let albumController = AlbumController()
-        
-        albumController.createAlbum(artist: "me",
-                                    coverArt: [URL(string: "www.google.com")!],
-                                    genres: ["Nothing"],
-                                    id: UUID(), name: "a name",
-                                    songs: [Album.Song(duration: "3:05",
-                                                       id: UUID(),
-                                                       title: "A Song")]
-        )
-        
-        albumController.getAlbums { (error) in
-            if let error = error {
-                print(error)
-            }
-        }
+//        let albumController = AlbumController()
+//        
+//        albumController.createAlbum(artist: "me",
+//                                    coverArt: [URL(string: "www.google.com")!],
+//                                    genres: ["Nothing"],
+//                                    id: UUID(), name: "a name",
+//                                    songs: [Album.Song(duration: "3:05",
+//                                                       id: UUID(),
+//                                                       title: "A Song")]
+//        )
+//        
+//        albumController.getAlbums { (error) in
+//            if let error = error {
+//                print(error)
+//            }
+//        }
         return true
     }
 

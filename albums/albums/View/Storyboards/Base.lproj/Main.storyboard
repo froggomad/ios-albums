@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="pM1-YE-JNd" detailTextLabel="xNY-xV-Gyo" style="IBUITableViewCellStyleSubtitle" id="BJ2-Qv-IAy">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="genericCell" textLabel="pM1-YE-JNd" detailTextLabel="xNY-xV-Gyo" style="IBUITableViewCellStyleSubtitle" id="BJ2-Qv-IAy">
                                 <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BJ2-Qv-IAy" id="2Tz-xX-lIl">
@@ -39,7 +39,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="nFG-dC-GyL" kind="show" id="z2H-mV-wtr"/>
+                                    <segue destination="nFG-dC-GyL" kind="show" identifier="ButtonDetailSegue" id="z2H-mV-wtr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -51,7 +51,7 @@
                     <navigationItem key="navigationItem" id="Ldh-5Y-b93">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EFp-Q0-1Tj">
                             <connections>
-                                <segue destination="nFG-dC-GyL" kind="show" id="YU9-RZ-aUl"/>
+                                <segue destination="nFG-dC-GyL" kind="show" identifier="AddAlbumSegue" id="YU9-RZ-aUl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -107,7 +107,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="101" id="Gz2-BA-knA" customClass="SongTableViewCell" customModule="albums" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongTableViewCell" rowHeight="101" id="Gz2-BA-knA" customClass="SongTableViewCell" customModule="albums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="208" width="414" height="101"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gz2-BA-knA" id="uju-if-kws">
@@ -154,8 +154,8 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addSongButton" destination="QsB-kM-Fq7" id="uZ2-tg-SS0"/>
-                                    <outlet property="durationLabel" destination="wEI-2P-nIN" id="SvK-Sw-8Ez"/>
-                                    <outlet property="titleLabel" destination="g1J-Cl-3P3" id="oMb-rH-N8P"/>
+                                    <outlet property="durationTextField" destination="wEI-2P-nIN" id="SvK-Sw-8Ez"/>
+                                    <outlet property="titleTextField" destination="g1J-Cl-3P3" id="oMb-rH-N8P"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -165,13 +165,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="MCu-iv-oiT">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="dZP-Y1-zgN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="dZP-Y1-zgN">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="nFG-dC-GyL" id="Mfi-oG-zCT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="ablumArtistTextField" destination="8wE-4n-CIu" id="xrI-hg-V3A"/>
+                        <outlet property="albumArtistTextField" destination="8wE-4n-CIu" id="xrI-hg-V3A"/>
                         <outlet property="albumGenresTextField" destination="Qf8-r3-DqV" id="brU-6R-Jpi"/>
+                        <outlet property="albumNameTextField" destination="sQs-hV-1lC" id="8o8-qc-wbO"/>
                         <outlet property="albumURLsTextField" destination="WCc-hE-1Uc" id="Xj1-RF-INu"/>
-                        <outlet property="albumeNameTextField" destination="sQs-hV-1lC" id="8o8-qc-wbO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="phC-Pn-rcv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -198,6 +202,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YU9-RZ-aUl"/>
+        <segue reference="z2H-mV-wtr"/>
     </inferredMetricsTieBreakers>
 </document>

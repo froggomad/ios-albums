@@ -128,6 +128,8 @@ class AlbumController {
         }
     }
     
+    //=======================
+    // MARK: - Testing
     class func testDecodingExampleAlbum() {
         let decoder = JSONDecoder()
         let urlPath = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json")

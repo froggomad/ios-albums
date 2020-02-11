@@ -10,14 +10,37 @@ import UIKit
 
 class AlbumsTableViewController: UITableViewController {
 
-    
+    //=======================
+    // MARK: - Properties
+    var albumController: AlbumController = AlbumController()
+    enum SegueIdentifiers: String {
+        case barButton = "ButtonDetailSegue"
+        case cell = "AddAlbumSegue"
+    }
+    enum CellIdentifier: String {
+        case id = "genericCell"
+    }
     
     //=======================
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        albumController.getAlbums { error in
+            if let error = error {
+                print(error)
+            }
+            print(self.albumController.albums)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }
     }
-    //=======================
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        tableView.reloadData()
+    }
     
     //=====================================
     // MARK: - Table view data source
@@ -26,20 +49,24 @@ class AlbumsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        #warning("Incomplete implementation, return the number of rows")
-        return 0
+        return albumController.albums.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.id.rawValue, for: indexPath)
+        cell.textLabel?.text = albumController.albums[indexPath.row].name
+        cell.detailTextLabel?.text = albumController.albums[indexPath.row].artist
         return cell
     }
-    //=======================
     
     //=======================
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        guard let destination = segue.destination as? AlbumDetailTableViewController else { return }
+        destination.albumController = albumController
+        if segue.identifier == SegueIdentifiers.barButton.rawValue {
+            let indexPath = tableView.indexPathForSelectedRow
+            destination.album = albumController.albums[indexPath?.row ?? 0]
+        }
     }
-    //=======================
 }
