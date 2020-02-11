@@ -9,7 +9,8 @@
 import Foundation
 
 struct Album: Codable {
-    
+    //=======================
+    // MARK: - Properties
     let artist: String
     let coverArt: [URL]
     let genres: [String]
@@ -17,6 +18,8 @@ struct Album: Codable {
     let name: String
     let songs: [Song]
     
+    //=======================
+    // MARK: - CodingKeys
     enum AlbumKeys: String, CodingKey {
         case artist
         case coverArt
@@ -30,6 +33,8 @@ struct Album: Codable {
         case url
     }
     
+    //=======================
+    // MARK: - Decoder Init
     init(from decoder: Decoder) throws {
         do {
             let albumContainer = try decoder.container(keyedBy: AlbumKeys.self)
@@ -51,11 +56,33 @@ struct Album: Codable {
             throw error
         }
     }
+    //=======================
+    // MARK: - Standard Init
+    init(artist: String,
+         coverArt: [URL],
+         genres: [String],
+         id: UUID,
+         name: String,
+         songs: [Song]) {
+        self.artist = artist
+        self.coverArt = coverArt
+        self.genres = genres
+        self.id = id
+        self.name = name
+        self.songs = songs
+    }
     
+    //=======================
+    // MARK: - Encoding strategy
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AlbumKeys.self)
+        var coverArtDict = [[String:URL]]()
+        for url in coverArt {
+            coverArtDict.append(["url":url])
+        }
+        
         do {
-            try container.encode(coverArt, forKey: .coverArt)
+            try container.encode(coverArtDict, forKey: .coverArt)
             try container.encode(artist, forKey: .artist)
             try container.encode(genres, forKey: .genres)
             try container.encode(id, forKey: .id)
@@ -67,10 +94,14 @@ struct Album: Codable {
     }
     
     struct Song: Codable {
+        //=======================
+        // MARK: - Properties
         let duration: String
         let id: UUID
         let title: String
         
+        //=======================
+        // MARK: - CodingKeys
         enum SongKeys: String, CodingKey {
             case id
             case title = "name"
@@ -81,10 +112,12 @@ struct Album: Codable {
             case title
         }
         
-        enum DurationKeys: String, CodingKey {
+        enum DurationKey: String, CodingKey {
             case duration
         }
         
+        //=======================
+        // MARK: - Decoder Init
         init(from decoder: Decoder) throws {
             let songContainer = try decoder.container(keyedBy: SongKeys.self)
             do {
@@ -92,19 +125,34 @@ struct Album: Codable {
                 title = try titleContainer.decode(String.self, forKey: .title)
                 id = try songContainer.decode(UUID.self, forKey: .id)
                 
-                let durationContainer = try songContainer.nestedContainer(keyedBy: DurationKeys.self, forKey: .duration)
+                let durationContainer = try songContainer.nestedContainer(keyedBy: DurationKey.self, forKey: .duration)
                 duration = try durationContainer.decode(String.self, forKey: .duration)
             } catch {
                 throw error
             }
         }
         
+        //=======================
+        // MARK: - Standard Init
+        init(duration: String,
+             id: UUID,
+             title: String) {
+            self.duration = duration
+            self.id = id
+            self.title = title
+        }
+        
+        //=======================
+        // MARK: - Encoding Strategy
         func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: SongKeys.self)
+            let durationDict = [SongKeys.duration.rawValue:duration]
+            let titleDict = [TitleKey.title.rawValue:title]
+            
             do {
-                try container.encode(title, forKey: .title)
+                try container.encode(titleDict, forKey: .title)
                 try container.encode(id, forKey: .id)
-                try container.encode(duration, forKey: .duration)
+                try container.encode(durationDict, forKey: .duration)
             } catch {
                 throw error
             }
